@@ -1,0 +1,393 @@
+Spring Questions You Might Be Thinking About
+* Question 1: Spring Container vs Spring Context vs IoC
+    Container vs Application Context
+* Question 2: Java Bean vs Spring Bean
+* Question 3: How can I list all beans managed by Spring
+    Framework?
+* Question 4: What if multiple matching beans are available?
+
+
+What is Spring Container?
+* Spring Container: Manages Spring beans and their lifecycle
+* 1: Bean Factory: Basic Spring Container
+* 2: Application Context: Advanced Spring Container with enterprise-specific features
+    - Easy to use in web applications
+    - Easy internationalization
+    - Easy integration with Spring AOP
+* Which one to use?: Most enterprise applications use Application Context
+    - Recommended for web applications, web services - REST API and microservices
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+MORE INFO:
+✅ Correct! Here is some feedback:
+
+BeanFactory - The BeanFactory interface represents
+ the most basic form of the Spring IoC Container.
+ It provides the core functionality for managing beans and their dependencies.
+
+✅ Correct! Here is some feedback:
+
+ApplicationContext - The ApplicationContext interface provides support for
+ advanced configuration mechanisms, such as aspect-oriented programming (AOP)
+ and declarative transaction management. It offers additional
+ capabilities beyond the basic functionality of the BeanFactory.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Exploring Java Bean vs POJO vs Spring Bean
+
+* Java Bean: Classes adhering to 3 constraints:
+ - 1: Have public default (no argument) constructors
+ - 2: Allow access to their properties using getter
+    and setter methods
+ - 3: Implement java.io.Serializable
+
+* POJO: Plain Old Java Object
+ - No constraints
+ - Any Java Object is a POJO
+
+* Spring Bean: Any java object managed by Spring
+ - Spring uses IoC container ( Bean Factory or Application Context)
+    to manage these objects
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+✅ Correct! Here is some feedback:
+
+A Java class that does not depend on any frameworks or inherit from
+specific classes. - A POJO is a Java class that is free from any
+framework-specific dependencies or requirements. It is a plain,
+simple Java object that can be used in any Java application without relying on
+specific frameworks or inheritance hierarchies.
+
+✅ Correct! Here is some feedback:
+
+A Java class that is managed by the Spring IoC container. - A Spring bean
+is a Java object that is managed by the Spring IoC (Inversion of Control)
+ container. It is created, configured, and controlled by the container,
+  allowing for loose coupling and dependency injection.
+
+Spring beans are managed by the Spring IoC container - The main difference
+is that Spring beans are managed by the Spring IoC container, providing
+ additional features such as dependency injection and lifecycle management.
+ Java beans, on the other hand, are objects that follow the JavaBeans
+ specification but are not necessarily managed by any specific container.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+✅ Correct! Here is some feedback:
+
+It indicates that a bean should be given precedence when multiple beans of
+the same type are present - The @Primary annotation is used to indicate that
+ a particular bean should be given precedence when multiple beans of the same
+  type are present in the application context. It helps resolve ambiguity when
+  autowiring by specifying the primary candidate for injection.
+
+✅ Correct! Here is some feedback:
+
+@Qualifier - The @Qualifier annotation is used along with @Autowired to specify the
+ exact bean to be autowired when multiple beans of the same type are present. It
+  works in conjunction with @Primary to resolve ambiguity and provide a specific
+  bean for autowiring.
+
+✅ Correct! Here is some feedback:
+
+@Primary indicates precedence, while @Qualifier specifies the name of the bean.
+ - @Primary and @Qualifier are both used in Spring bean autowiring to resolve ambiguity,
+  but they serve different purposes. @Primary indicates that a bean should be given
+  precedence, while @Qualifier specifies the exact name of the bean to be autowired.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Question 5: Spring is managing objects and performing auto-wiring.
+    - But aren't we writing the code to create objects?
+    - How do we get Spring to create objects for us?
+
+@Primary vs @Qualifier - Which one to use?
+     @Component @Primary
+     class Quicksort implement SortingAlgorithm {}
+
+     @Component
+     class BubbleSort implement SortingAlgorithm {}
+
+     @Component @Qualifier("RadixSortQualifier")
+     class RadixSort implement SortingAlgorithm {}
+
+     @Component
+     class ComplexAlgorithm  @Autowired
+     private SortingAlgorithm algorithm;
+
+     @Component
+     class AnotherComplexAlgorithm
+     @Autowired @Qualifier("RadixSortQualifier")
+     private SortingAlgorithm iWantToUseRadixSortOnly;
+
+ * @Primary - A bean should be given preference when multiple candidates are qualified
+ * @Qualifier - A specific bean should be auto-wired(name of the bean can be used as qualifier)
+ * ALWAYS think from the perspective of the class using the sortingAlgorithm:
+        - 1: Just @Autowired: Give me (preferred) SortingAlgorithm
+        - 2: @Autowired + @Qualifier: I only want to use specific SortingAlgorithm - RadixSort
+        - (REMEMBER) @Qualifier has higher priority over @Primary
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+✅ Correct! Here is some feedback:
+
+When you have multiple beans of the same type and want to specify the primary bean to be used. -
+The @Primary annotation is used when you have multiple beans of the same type in the
+Spring context and want to indicate which one should be considered as the primary bean to be used.
+
+✅ Correct! Here is some feedback:
+
+@Qualifier - The @Qualifier annotation is used to specify the exact bean to be injected when multiple
+ beans of the same type exist. It works in conjunction with @Autowired to resolve ambiguity.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Exploring Spring - Dependency Injection Types
+* Constructor-based : Dependencies are set by creating the Bean using its Constructor
+* Setter-based : Dependencies are ser by calling the setter methods on your beans
+* Field : No setter or constructor. Dependency is injected using reflection
+* Question: Which one should you use?
+    - Spring team recommends Constructor-based injection as dependencies are automatically
+    set when object is created!
+
+
+Spring Framework - Important Terminology
+* @Component (..): An instance of class that will be managed by Spring framework
+* Dependency: GameRunner needs GamingConsole impl!
+    - GamingConsole impl (Ex: MarioGame) is a dependency of GameRunner
+* Component Scan: How does Spring Framework find component classes?
+    - It scans packages! (@ComponentScan("com.in28minutes"))
+* Dependency Injection: Identify beans, their dependencies and wire them together
+(Provides IOC - Inversion of Control)
+    - Spring Beans: An object managed by Spring Framework
+    - IoC container: Manages the lifecycle of beans and dependencies
+        ~Types: ApplicationContext(complex), BeanFactory (simpler features - rarely used)
+    - Autowiring: Process of wiring in dependencies for a Spring Bean
+
+
+@Component vs @Bean
+
+where? :  can be used on any Java class : Typically used on methods in Spring Configuration classes
+
+Ease of use : very easy. just add an annotation : you write all the code
+
+Autowiring : Yes - field, setter or Construction Injection : Yes - method call or method parameters
+
+Who creates beans? : Spring Framework  : You write bean creation code
+
+Recommended For : Instantiating Beans for Your own Application Code @Component : 1:Custom Business Logic
+                                                                                 2:Instantiating Beans for 3rd-party
+                                                                                 libraries
+
+
+Why do we have a lot of Dependencies?
+* In Game Runner Hello World App, we have very few classes
+* BUT Real World applications are much more complex:
+    - Multiple Layers (Web, Business, Data etc)
+    - Each layer is dependent on the layer below it!
+        ~ Example: Business Layer class talks to a Data Layer class
+            -> Data Layer class is dependency of Business Layer class
+        ~ There are thousands of such dependencies in every application
+* With Spring Framework:
+    - INSTEAD OF FOCUSING on objects, their dependencies and wiring
+        ~ You can focus on the business logic of your application
+    - Spring Framework manages the lifecycle of objects:
+        ~ Mark components using annotations: @Component (and others..)
+        ~ Mark dependencies using @Autowired
+        ~ Allow Spring Framework to do its magic!
+
+Exercise - BusinessCalculationService
+
+    public interface DataService
+        int[] retrieveData();
+
+    public class MongoDbDataService implements DataService
+        public int[] retrieveData();
+        return new int[] {11,22,33,44,55};
+
+    public class MySQLDataService implements DataService
+        public int[] retrieveData()
+        return new int[] {1,2,3,4,5};
+
+    public class BusinessCalculationService
+        public int findMax()
+            return Arrays.stream(dataService.retrieveData()).max().orElse(0);
+
+* Create classes and interfaces as needed
+    - Use constructor injection to inject dependencies
+    - Make MongoDbDataService as primary
+    - Create a Spring Context
+        ~ Prefer annotations
+        ~ Retrieve BusinessCalculationService bean and run findMax method
+
+
+Exploring Lazy Initialization of Spring Beans
+* Default initialization for Spring Beans: Eager
+* Eager initialization is recommended:
+    - Errors in the configuration are discovered immediately at application
+    startup
+* However, you can configure beans to be lazily initialized using Lazy annotation:
+    - Not recommended (AND) Not frequently used
+* Lazy annotation:
+    - Can be used almost everywhere @Component and @Bean are used
+    - Lazy-resolution proxy will be injected instead of the actual dependency
+    - Can be used on Configuration (@Configuration) class:
+        ~ All @Bean methods within the @Configuration will be lazily initialized
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+✅ Correct! Here is some feedback:
+
+Beans are initialized only when explicitly requested. - Lazy initialization means that
+the bean is created and initialized only when it is explicitly requested for the
+first time. This approach helps optimize resource usage by delaying the creation
+of beans until they are actually needed.
+
+✅ Correct! Here is some feedback:
+
+Beans are initialized eagerly during application startup. - Eager initialization means that the
+ beans are created and initialized during the application startup phase, even if
+  they are not immediately used. This ensures that all dependencies are resolved
+  and ready for use when needed.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Comparing Lazy Initialization vs Eager Initialization
+
+Initialization time : Bean is initialized when it is first
+                        made use of in the application
+
+-------------------------------------------------------------------------------------
+
+Spring Bean Scopes
+
+* Spring Beans are defined to be used in a specific scope:
+    - Singleton - One object instance per Spring IoC Container
+    - Prototype - possibly many object instances per Spring IoC container
+    - Scopes applicable ONLY for web-aware Spring ApplicationContext
+        ~ Request - One object instance per single HTTP request
+        ~ Session - One object instance per user HTTP session
+        ~ Application - One object instance per web application runtime
+        ~ Websocket - One object instance per WebSocket instance
+
+* Java Singleton (GOF) vs Spring Singleton
+    - Spring Singleton: One object instance per Spring IoC container
+    - Java Singleton: One object instance per JVM
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+✅ Correct! Here is some feedback:
+
+Singleton - The singleton bean scope in Spring is more memory-intensive as it
+creates a single instance of the bean that is stored in memory throughout the entire
+application's lifecycle, potentially consuming more memory compared to the prototype scope.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Evolution of Jakarta EE: vs J2EE vs Java EE
+
+* Enterprise capabilities were initially built into JDK
+* With time, they were separated out:
+    - J2EE - Java 2 Platform Enterprise Edition
+    - Java EE - Java Platform Enterprise Edition (Rebranding)
+    - Jakarta EE ( Oracle gave Java EE rights to the Eclipse Foundation)
+        ~ Important Specifications:
+            -> jakarta Server Pages (JSP)
+            -> Jakarta Standard Tag Library (JSTL)
+            -> Jakarta Enterprise Beans (EJB)
+            -> Jakarta RESTful Web Services (JAX-RS)
+            -> Jakarta Bean Validation
+            -> Jakarta Contexts and Dependency Injection (CDI)
+            -> Jakarta Persistence (JPA)
+        ~ Supported by Spring 6 and Spring Boot 3
+            -> That's why we use jakarta.packages (instead of javax)
+
+
+Spring Stereotype Annotations - @component & more..
+* @Component - Generic annotation applicable for any class
+    - Base for all Spring Stereotype Annotations  Specializations of @Component:
+        ◦ @Service - Indicates that an annotated class has business logic
+        ◦ @Controller - Indicates that an annotated class is a "Controller" (e.g. a web controller)
+            -> Used to define controllers in your web applications and REST API
+        ◦ @Repository - Indicates that an annotated class is used to retrieve and/or manipulate
+         data in a database
+* What should you use?
+    - (MY RECOMMENDATION) Use the most specific annotation possible
+    ⁃ Why?
+        ◦ By using a specific annotation, you are giving more information to the framework about
+          your intentions.
+        ◦ You can use AOP at a later point to add additional behavior
+            -> Example: For @Repository, Spring automatically wires in JDBC Exception translation features
+
+
+Spring Big Picture - Framework, Modules and Projects
+* Spring Core : IOC Container, Injection, Auto Wiring, ..
+ - These are the fundamental building blocks to:
+    ○ Building web applications
+    ◦ Creating REST API
+    ◦ Implementing authentication and authorization
+    ○ Talking to a database ◦ Integrating with other systems
+    ◦ Writing great unit tests
+* Let's now get a Spring Big Picture:
+    ⁃ Spring Framework
+    - Spring Modules
+    - Spring Projects
+
+Spring Big Picture ⁃ Framework and Modules
+◦ Spring Framework contains multiple Spring Modules:
+    - Fundamental Features: Core (IOC Container, Dependency  Injection, Auto Wiring, ..)
+    - Web: Spring MVC etc (Web applications, REST API)
+    ⁃ Web Reactive: Spring WebFlux etc
+    - Data Access: JDBC, JPA etc
+    - Integration: JMS etc
+    ⁃ Testing: Mock Objects, Spring MVC Test etc
+* No Dumb Question: Why is Spring Framework divided  into Modules?
+    ⁃ Each application can choose modules they want to make use of
+    - They do not need to make use of everything in Spring  framework!
+
+Spring Big Picture ⁃ Spring Projects
+* Application architectures evolve continuously
+    ⁃ Web > REST API > Microservices > Cloud >
+* Spring evolves through Spring Projects:
+    - First Project: Spring Framework
+    ⁃ Spring Security: Secure your web application or REST API  or microservice
+    ⁃ Spring Data: Integrate the same way with different types  of databases :NoSQL and Relational
+    ⁃ Spring Integration: Address challenges with integration  with other applications
+    - Spring Boot: Popular framework to build microservices
+    - Spring Cloud: Build_cloud native applications
+
+ spring Big Picture - Framework, Modules and Projects
+. Hierarchy: Spring Projects > Spring Framework > Spring Modules
+• Why is Spring Eco system popular?
+    - Loose Coupling: Spring manages creation and wiring of beans and dependencies
+        ◦ Makes it easy to build loosely coupled applications
+        ◦ Make writing unit tests easy! (Spring Unit Testing)
+    - Reduced Boilerplate Code: Focus on Business Logic
+        ◦ Example: No need for exception handling in each method!
+            -> All Checked Exceptions are converted to Runtime or Unchecked Exceptions
+    - Architectural Flexibility: Spring Modules and Projects
+        ◦ You can pick and choose which ones to use (You DON'T need to use all of them!)
+    ⁃ Evolution with Time: Microservices and Cloud
+        ◦ Spring-Boot, Spring-Cloud-etc!
+
+
+Getting Started with Spring Boot
+• WHY Spring Boot?
+    - You can build web apps & REST API WITHOUT Spring Boot
+    - What is the need for Spring Boot? .
+ • WHAT are the goals of Spring Boot?
+ • HOW does Spring Boot work?
+ • COMPARE Spring Boot vs Spring MVC vs Spring
+
+
+Getting Started with Spring Boot ⁃ Approach  .
+1: Understand the world before Spring Boot (10000 Feet)  .
+2: Create a Spring Boot Project  .
+3: Build a simple REST API using Spring Boot  .
+4: Understand the MAGIC of Spring Boot
+    ⁃ Spring Initializr
+    - Starter Projects
+    - Auto Configuration
+    - Developer Tools
+    ⁃ Actuator
+    - ...

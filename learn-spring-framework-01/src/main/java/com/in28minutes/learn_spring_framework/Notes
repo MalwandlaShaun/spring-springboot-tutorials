@@ -1,0 +1,103 @@
+Spring Questions You Might Be Thinking About
+* Question 1: Spring Container vs Spring Context vs IoC
+    Container vs Application Context
+* Question 2: Java Bean vs Spring Bean
+* Question 3: How can I list all beans managed by Spring
+    Framework?
+* Question 4: What if multiple matching beans are available?
+
+
+What is Spring Container?
+* Spring Container: Manages Spring beans and their lifecycle
+* 1: Bean Factory: Basic Spring Container
+* 2: Application Context: Advanced Spring Container with enterprise-specific features
+    - Easy to use in web applications
+    - Easy internationalization
+    - Easy integration with Spring AOP
+* Which one to use?: Most enterprise applications use Application Context
+    - Recommended for web applications, web services - REST API and microservices
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+MORE INFO:
+✅ Correct! Here is some feedback:
+
+BeanFactory - The BeanFactory interface represents
+ the most basic form of the Spring IoC Container.
+ It provides the core functionality for managing beans and their dependencies.
+
+✅ Correct! Here is some feedback:
+
+ApplicationContext - The ApplicationContext interface provides support for
+ advanced configuration mechanisms, such as aspect-oriented programming (AOP)
+ and declarative transaction management. It offers additional
+ capabilities beyond the basic functionality of the BeanFactory.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+Exploring Java Bean vs POJO vs Spring Bean
+
+* Java Bean: Classes adhering to 3 constraints:
+ - 1: Have public default (no argument) constructors
+ - 2: Allow access to their properties using getter
+    and setter methods
+ - 3: Implement java.io.Serializable
+
+* POJO: Plain Old Java Object
+ - No constraints
+ - Any Java Object is a POJO
+
+* Spring Bean: Any java object managed by Spring
+ - Spring uses IoC container ( Bean Factory or Application Context)
+    to manage these objects
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+✅ Correct! Here is some feedback:
+
+A Java class that does not depend on any frameworks or inherit from
+specific classes. - A POJO is a Java class that is free from any
+framework-specific dependencies or requirements. It is a plain,
+simple Java object that can be used in any Java application without relying on
+specific frameworks or inheritance hierarchies.
+
+✅ Correct! Here is some feedback:
+
+A Java class that is managed by the Spring IoC container. - A Spring bean
+is a Java object that is managed by the Spring IoC (Inversion of Control)
+ container. It is created, configured, and controlled by the container,
+  allowing for loose coupling and dependency injection.
+
+Spring beans are managed by the Spring IoC container - The main difference
+is that Spring beans are managed by the Spring IoC container, providing
+ additional features such as dependency injection and lifecycle management.
+ Java beans, on the other hand, are objects that follow the JavaBeans
+ specification but are not necessarily managed by any specific container.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+✅ Correct! Here is some feedback:
+
+It indicates that a bean should be given precedence when multiple beans of
+the same type are present - The @Primary annotation is used to indicate that
+ a particular bean should be given precedence when multiple beans of the same
+  type are present in the application context. It helps resolve ambiguity when
+  autowiring by specifying the primary candidate for injection.
+
+✅ Correct! Here is some feedback:
+
+@Qualifier - The @Qualifier annotation is used along with @Autowired to specify the
+ exact bean to be autowired when multiple beans of the same type are present. It
+  works in conjunction with @Primary to resolve ambiguity and provide a specific
+  bean for autowiring.
+
+✅ Correct! Here is some feedback:
+
+@Primary indicates precedence, while @Qualifier specifies the name of the bean.
+ - @Primary and @Qualifier are both used in Spring bean autowiring to resolve ambiguity,
+  but they serve different purposes. @Primary indicates that a bean should be given
+  precedence, while @Qualifier specifies the exact name of the bean to be autowired.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Question 5: Spring is managing objects and performing auto-wiring.
+    - But aren't we writing the code to create objects?
+    - How do we get Spring to create objects for us?

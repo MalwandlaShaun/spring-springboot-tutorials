@@ -1,0 +1,22 @@
+JDBC to Spring JDBC to JPA to Spring Data JPA
+• JDBC  ⁃ Write a lot of SQL queries! (delete from todo where id=?)
+    ⁃ And write a lot of Java code
+• Spring JDBC
+    - Write a lot of SQL queries (delete from todo where id=?)
+    - BUT lesser Java code
+• JPA
+    - Do NOT worry about queries
+    ⁃ Just Map Entities to Tables!
+• Spring Data JPA
+    ⁃ Let's make JPA even more simple!
+    ⁃ will take care of everything!
+
+
+Building Your First Web Application
+. Building Your First Web Application can be complex:
+    ⁃ Web App concepts (Browser, HTML, CSS, Request, Response, Form, Session, Authentication)
+    - Spring MVC (Dispatcher Servlet, View Resolvers, Model, View, Controller, Validations ..
+    - Spring Boot (Starters, Auto Configuration, ..)
+    ⁃ Frameworks/Tools (JSP, JSTL, JPA, Bootstrap, Spring Security, MySQL, H2)
+. Goal: Build Todo Management Web App with a Modern Spring Boot Approach
+• ANDexplore all_concepts in a_HANDS-ON _way
